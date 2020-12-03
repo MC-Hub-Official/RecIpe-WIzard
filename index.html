@@ -1,14 +1,13 @@
 <html>
     <head>
-        <script src="crafting/js.js"></script>
-        <script src="furnace/js.js"></script>
-        <script src="app.js"></script>
+        <script type="module" src="recipe-wizard.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
         <title> RecIpe WIzard demo </title>
     </head>
     <body>
-        <button onclick='getSmeltingRecipe("iron_ore", "coal_block", true);'>Smelt Iron Ore with Coal Block</button>
+        <p> RecIpe WIzard is still in development! </p>
+        <button onclick='craft("acacia_planks", "acacia_planks", "null", "acacia_planks", "acacia_planks", "null", "acacia_planks", "acacia_planks", "null", true);'>Smelt Iron Ore with Coal Block</button>
         <p> Look in your browser's JavaScript console </p>
     </body>
 </html>
