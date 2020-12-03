@@ -11,6 +11,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 const items = ["acacia_boat", "acacia_button", "acacia_door", "acacia_fence", "acacia_fence_gate", "acacia_planks", "acacia_pressure_plate"];
 
@@ -79,11 +80,6 @@ function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, printConsole) {
     checkTempWithDB(new CraftingTable(s1, s2, s3, s4, s5, s6, s7, s8, s9));
     return(result);
 }
-
-const firebase = require("firebase");
-require("firebase/firestore");
-
-var db = firebase.firestore();
 
 const acacia_boat_ref = firestore.doc("RecIpe WIzard Crafting/acacia_boat");
 const acacia_button_ref = firestore.doc("RecIpe WIzard Crafting/acacia_button");
