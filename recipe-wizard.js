@@ -69,6 +69,7 @@ function checkTempWithDB(temp) {
                 }}).catch(function(error) {
                 console.log("Error getting document:", error)
                 });
+
     }
 }
 
@@ -80,6 +81,3 @@ function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, printConsole) {
     checkTempWithDB(new CraftingTable(s1, s2, s3, s4, s5, s6, s7, s8, s9));
     return(result);
 }
-
-const acacia_boat_ref = firestore.doc("RecIpe WIzard Crafting/acacia_boat");
-const acacia_button_ref = firestore.doc("RecIpe WIzard Crafting/acacia_button");
