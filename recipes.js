@@ -1,6 +1,3 @@
-var firebase = require('firebase/app');
-require('firebase/firestore');
-
 const firebaseConfig = {
     apiKey: "AIzaSyCJrzuFHQTTjQqs1nYqvSvT9pRWYkl3BKc",
     authDomain: "mc-hub-gc.firebaseapp.com",
@@ -79,6 +76,6 @@ function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, printConsole) {
     if (printConsole) {
         console.log("Returning recipe for: " + s1 + ", " + s2 + ", " + s3 + ", " + s4 + ", " + s5 + ", " + s6 + ", " + s7 + ", " + s8 + ", " + s9);
     }
-    checkTempWithDB(new CraftingTable(s1, s2, s3, s4, s5, s6, s7, s8, s9));
+    result = checkTempWithDB(new CraftingTable(s1, s2, s3, s4, s5, s6, s7, s8, s9));
     return(result);
 }
