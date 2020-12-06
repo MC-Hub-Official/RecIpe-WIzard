@@ -1,13 +1,12 @@
 // Create and setup output elements
-
 var outputElement = document.createElement("span");
-var outputAcknowledgementElement = document.createElement("span");
+var outputAckElement = document.createElement("span");
 outputElement.classList.add("recipewizardhidden");
-outputAcknowledgementElement.classList.add("recipewizardhidden");
+outputAckElement.classList.add("recipewizardhidden");
 outputElement.id = "recipeOutput";
-outputAcknowledgementElement.id = "recipeOutputAcknowledgement";
+outputAckElement.id = "recipeOutputAck";
 document.body.appendChild(outputElement);
-document.body.appendChild(outputAcknowledgementElement);
+document.body.appendChild(outputAckElement);
 
 // Add stylesheet
 document.head.insertAdjacentHTML("beforeend", '<link rel="stylesheet" href="css.css">')
@@ -27,7 +26,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-
 // Define and append to a list of craftable Minecraft items
 var items = [];
 db.collection("RecIpe WIzard Crafting").get().then(function(querySnapshot) {
@@ -37,7 +35,7 @@ db.collection("RecIpe WIzard Crafting").get().then(function(querySnapshot) {
 });
 
 // Define class for Crafting Table Recipe
-class Ctr {
+class CT_Recipe {
     constructor (s1, s2, s3, s4, s5, s6, s7, s8, s9, itemName) {
         this.s1 = s1;
         this.s2 = s2;
@@ -51,7 +49,7 @@ class Ctr {
         this.itemName = itemName;
     }
     // Return the items per slot
-    ctSlots() {
+    getCT_Slots() {
         return this.s1 + ', ' + this.s2 + ', ' + this.s3 + ', ' + this.s4 + ', ' + this.s5 + ', ' + this.s6+ ', ' + this.s7 + ', ' + this.s8 + ', ' + this.s9;
     }
     // Return the item name, for pre-defined recipes
@@ -64,38 +62,36 @@ class Ctr {
 var converter = {
     fromFirestore: function(snapshot, options){
         const data = snapshot.data(options);
-        return new Ctr(data.s1, data.s2, data.s3, data.s4, data.s5, data.s6, data.s7, data.s8, data.s9, data.itemName);
+        return new CT_Recipe(data.s1, data.s2, data.s3, data.s4, data.s5, data.s6, data.s7, data.s8, data.s9, data.itemName);
     }
 }
 
-// Check user-submitted CTR with all records on database
-function checkTempWithDB(temp) {
-    var returnableResult, currentItem;
+// Check user-submitted CT_Recipe with all records on database
+function getRecipeOutput(inputRecipe) {
+    var currentItem;
     for (var i = 0; i < items.length; i = i+1) {
         currentItem = items[i];
         db.collection("RecIpe WIzard Crafting").doc(currentItem)
         .withConverter(converter)
         .get().then(function(doc) {
             var onDB = doc.data();
-            var tempData = temp.ctSlots();
-            var onDBdata = onDB.ctSlots();
+            var tempData = inputRecipe.getCT_Slots();
+            var onDBdata = onDB.getCT_Slots();
             if (tempData === onDBdata) {
-                returnableResult = onDB.toString();
                 var output = document.getElementById("recipeOutput");
-                var outputAcknowledgement = document.getElementById("recipeOutputAcknowledgement");
-
-                output.innerHTML = returnableResult;
-                outputAcknowledgement.innerHTML = "true";
+                var outputAck = document.getElementById("recipeOutputAck");
+                output.innerHTML = onDB.toString();
+                outputAck.innerHTML = "true";
             }
         });
     }
 }
 
-// Create temp from user-submitted recipe
+// 
 function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, printConsole) {
-    outputAcknowledgementElement.innerHTML = "false";
+    outputAckElement.innerHTML = "false";
     if (printConsole) {
         console.log("Returning recipe for: " + s1 + ", " + s2 + ", " + s3 + ", " + s4 + ", " + s5 + ", " + s6 + ", " + s7 + ", " + s8 + ", " + s9);
     }
-    checkTempWithDB(new Ctr(s1, s2, s3, s4, s5, s6, s7, s8, s9));
+    getRecipeOutput(new CT_Recipe(s1, s2, s3, s4, s5, s6, s7, s8, s9));
 }
