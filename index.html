@@ -4,10 +4,37 @@
     </head>
     <body>
         <p> RecIpe WIzard is still in development! </p>
-        <button onclick='craft("acacia_planks", "null", "acacia_planks", "acacia_planks", "acacia_planks", "acacia_planks", "null", "null", "null", false);'> Craft Acacia Boat </button>
+        <input type="text" id="i1"></input>
+        <input type="text" id="i2"></input>
+        <input type="text" id="i3"></input>
+        <br />
+        <input type="text" id="i4"></input>
+        <input type="text" id="i5"></input>
+        <input type="text" id="i6"></input>
+        <br />
+        <input type="text" id="i7"></input>
+        <input type="text" id="i8"></input>
+        <input type="text" id="i9"></input>
+        <br />
+        <script>
+            var i1, i2, i3, i4, i5, i6, i7, i8, i9;
+            function getTextFieldValues() {
+                i1 = document.getElementById('i1').value;
+                i2 = document.getElementById('i2').value;
+                i3 = document.getElementById('i3').value;
+                i4 = document.getElementById('i4').value;
+                i5 = document.getElementById('i5').value;
+                i6 = document.getElementById('i6').value;
+                i7 = document.getElementById('i7').value;
+                i8 = document.getElementById('i8').value;
+                i9 = document.getElementById('i9').value;
+            }
+        </script>
+        <button onclick='getTextFieldValues(); craft(i1, i2, i3, i4, i5, i6, i7, i8, i9, false); console.log(outputElement.innerHTML);'> Craft </button>
         <p> Look in your browser's JavaScript console </p>
+        <p id="displayOutput"></p>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
-        <script src="recipes.js"></script>
+        <script src="js.js"></script>
     </body>
 </html>

@@ -62,20 +62,6 @@ class Ctr {
 
 // Class converter for Firestore
 var converter = {
-    toFirestore: function(ct) {
-        return {
-            s1: ct.s1,
-            s2: ct.s2,
-            s3: ct.s3,
-            s4: ct.s4,
-            s5: ct.s5,
-            s6: ct.s6,
-            s7: ct.s7,
-            s8: ct.s8,
-            s9: ct.s9,
-            itemName: ct.itemName
-            }
-    },
     fromFirestore: function(snapshot, options){
         const data = snapshot.data(options);
         return new Ctr(data.s1, data.s2, data.s3, data.s4, data.s5, data.s6, data.s7, data.s8, data.s9, data.itemName);
