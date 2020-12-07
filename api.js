@@ -1,18 +1,18 @@
 // Create and setup output elements
-var outputElement = document.createElement("span");
-var outputAckElement = document.createElement("span");
-outputElement.classList.add("recipewizardhidden");
-outputAckElement.classList.add("recipewizardhidden");
-outputElement.id = "recipeOutput";
-outputAckElement.id = "recipeOutputAck";
-document.body.appendChild(outputElement);
-document.body.appendChild(outputAckElement);
+var RW_outputElement = document.createElement("span");
+var RW_outputAckElement = document.createElement("span");
+RW_outputElement.classList.add("recipewizardhidden");
+RW_outputAckElement.classList.add("recipewizardhidden");
+RW_outputElement.id = "RW_output";
+RW_outputAckElement.id = "RW_outputAck";
+document.body.appendChild(RW_outputElement);
+document.body.appendChild(RW_outputAckElement);
 
 // Add stylesheet
 document.head.insertAdjacentHTML("beforeend", '<link rel="stylesheet" href="css.css">')
 
 // Firebase configuration for access to the Cloud Firestore database
-const firebaseConfig = {
+const RW_firebaseConfig = {
     apiKey: "AIzaSyCJrzuFHQTTjQqs1nYqvSvT9pRWYkl3BKc",
     authDomain: "mc-hub-gc.firebaseapp.com",
     projectId: "mc-hub-gc",
@@ -23,19 +23,19 @@ const firebaseConfig = {
 };
 
 // Initialise Firebase
-firebase.initializeApp(firebaseConfig);
-var db = firebase.firestore();
+firebase.initializeApp(RW_firebaseConfig);
+var RW_db = firebase.firestore();
 
 // Define and append to a list of craftable Minecraft items
-var items = [];
-db.collection("RecIpe WIzard Crafting").get().then(function(querySnapshot) {
+var RW_items = [];
+RW_db.collection("Crafting").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-        items.push(doc.id);
+        RW_items.push(doc.id);
     });
 });
 
 // Define class for Crafting Table Recipe
-class CT_Recipe {
+class RW_CT_Recipe {
     constructor (s1, s2, s3, s4, s5, s6, s7, s8, s9, itemName) {
         this.s1 = s1;
         this.s2 = s2;
@@ -59,39 +59,39 @@ class CT_Recipe {
 }
 
 // Class converter for Firestore
-var converter = {
+var RW_converter = {
     fromFirestore: function(snapshot, options){
         const data = snapshot.data(options);
-        return new CT_Recipe(data.s1, data.s2, data.s3, data.s4, data.s5, data.s6, data.s7, data.s8, data.s9, data.itemName);
+        return new RW_CT_Recipe(data.s1, data.s2, data.s3, data.s4, data.s5, data.s6, data.s7, data.s8, data.s9, data.itemName);
     }
 }
 
 // Check user-submitted CT_Recipe with all records on database
-function getRecipeOutput(inputRecipe) {
-    var currentItem;
-    for (var i = 0; i < items.length; i = i+1) {
-        currentItem = items[i];
-        db.collection("RecIpe WIzard Crafting").doc(currentItem)
-        .withConverter(converter)
+function RW_getRecipeOutput(RW_inputRecipe) {
+    var RW_currentItem;
+    for (var i = 0; i < RW_items.length; i = i+1) {
+        RW_currentItem = RW_items[i];
+        RW_db.collection("Crafting").doc(RW_currentItem)
+        .withConverter(RW_converter)
         .get().then(function(doc) {
-            var onDB = doc.data();
-            var tempData = inputRecipe.getCT_Slots();
-            var onDBdata = onDB.getCT_Slots();
-            if (tempData === onDBdata) {
-                var output = document.getElementById("recipeOutput");
-                var outputAck = document.getElementById("recipeOutputAck");
-                output.innerHTML = onDB.toString();
-                outputAck.innerHTML = "true";
+            var RW_onDB = doc.data();
+            var RW_tempData = RW_inputRecipe.getCT_Slots();
+            var RW_onDBdata = RW_onDB.getCT_Slots();
+            if (RW_tempData === RW_onDBdata) {
+                var RW_output = document.getElementById("RW_output");
+                var RW_outputAck = document.getElementById("RW_outputAck");
+                RW_output.innerHTML = RW_onDB.toString();
+                RW_outputAck.innerHTML = "true";
             }
         });
     }
 }
 
 // 
-function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, printConsole) {
-    outputAckElement.innerHTML = "false";
-    if (printConsole) {
+function craft(s1, s2, s3, s4, s5, s6, s7, s8, s9, RW_printConsole) {
+    RW_outputAckElement.innerHTML = "false";
+    if (RW_printConsole) {
         console.log("Returning recipe for: " + s1 + ", " + s2 + ", " + s3 + ", " + s4 + ", " + s5 + ", " + s6 + ", " + s7 + ", " + s8 + ", " + s9);
     }
-    getRecipeOutput(new CT_Recipe(s1, s2, s3, s4, s5, s6, s7, s8, s9));
+    RW_getRecipeOutput(new RW_CT_Recipe(s1, s2, s3, s4, s5, s6, s7, s8, s9));
 }
