@@ -1,21 +1,30 @@
 <html>
     <head>
-        <title> RecIpe WIzard demo </title>
+        <title> Recipe Wizard demo </title>
+        <link rel="stylesheet" href="https://minecraft-hub.com/css/style.css">
+        <style>
+            .fit {
+                width: fit-content;
+                height: 5%;
+            }
+        </style>
     </head>
     <body>
-        <p> RecIpe WIzard is still in development! </p>
-        <input type="text" id="i1"></input>
-        <input type="text" id="i2"></input>
-        <input type="text" id="i3"></input>
+        <div class="message">
+        <p> Recipe Wizard is still in development! </p>
+        <input type="text" id="i1" class="fit"></input>
+        <input type="text" id="i2" class="fit"></input>
+        <input type="text" id="i3" class="fit"></input>
         <br />
-        <input type="text" id="i4"></input>
-        <input type="text" id="i5"></input>
-        <input type="text" id="i6"></input>
+        <input type="text" id="i4" class="fit"></input>
+        <input type="text" id="i5" class="fit"></input>
+        <input type="text" id="i6" class="fit"></input>
         <br />
-        <input type="text" id="i7"></input>
-        <input type="text" id="i8"></input>
-        <input type="text" id="i9"></input>
-        <br />
+        <input type="text" id="i7" class="fit"></input>
+        <input type="text" id="i8" class="fit"></input>
+        <input type="text" id="i9" class="fit"></input>
+	<br />
+	<br />
         <script>
             var i1, i2, i3, i4, i5, i6, i7, i8, i9;
             function getTextFieldValues() {
@@ -29,10 +38,13 @@
                 i8 = document.getElementById('i8').value;
                 i9 = document.getElementById('i9').value;
             }
+            function RW_callback(output) {
+                console.log(output);
+            }
         </script>
-        <button onclick='getTextFieldValues(); craft(i1, i2, i3, i4, i5, i6, i7, i8, i9, false); console.log(RW_outputElement.innerHTML);'> Craft </button>
+        <button onclick='getTextFieldValues(); craft(i1, i2, i3, i4, i5, i6, i7, i8, i9, false, false);' class="fit"> Craft </button>
         <p> Look in your browser's JavaScript console </p>
-        <p id="displayOutput"></p>
+        </div>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
         <script src="api.js"></script>
