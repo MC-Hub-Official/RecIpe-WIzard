@@ -39,11 +39,11 @@
                 i9 = document.getElementById('i9').value;
             }
             function RW_callback(output) {
-                console.log(output);
+                document.getElementById("output").innerHTML = output;
             }
         </script>
         <button onclick='getTextFieldValues(); craft(i1, i2, i3, i4, i5, i6, i7, i8, i9, false, false);' class="fit"> Craft </button>
-        <p> Look in your browser's JavaScript console </p>
+        <p id="output"> Click "Craft" to return the recipe output </p>
         </div>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>

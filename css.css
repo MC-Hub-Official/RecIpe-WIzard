@@ -1,3 +1,4 @@
 .recipewizardhidden {
     display: none !important;
+    visibility: hidden !important;
 }
